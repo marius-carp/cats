@@ -1,15 +1,22 @@
-import cats.{Applicative, Functor, Monad}
-import cats.Functor.ops._
 
 object Boot extends App {
 
-  val ops = Monad[Option]
-  val lst = Monad[List]
+  def partial1[A, B, C](a: A, f: (A, B) => C): B => C = {
+    f(a, _: B)
+  }
 
-  val resultOps = ops.flatMap(Option(1))(x => if (x > 0) Some(x) else None)
-  val resultLst = lst.flatMap(List(1, 2, 3))(x => List.fill(x)(x))
+  def curry[A, B, C](f: (A, B) => C): A => (B => C) = {
+    (a: A) => f(a, _: B)
+  }
 
+  def uncurry[A, B, C](f: A => B => C): (A, B) => C = {
+    (a: A, b: B) => f(a)(b)
+  }
 
-  println(resultOps)
+  def compose[A, B, C](f: B => C, g: A => B): A => C = {
+    (a: A) => f(g(a))
+  }
+
 
 }
+
