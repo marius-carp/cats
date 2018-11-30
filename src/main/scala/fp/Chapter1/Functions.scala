@@ -4,6 +4,21 @@ import scala.annotation.tailrec
 
 class Functions {
 
+  def fib(n: Int): Int = {
+    @tailrec
+    def fib(n: Int, a: Int, b: Int): Int = {
+      if(n == 0)
+        a
+      else if(n == 1)
+        b
+      else
+        fib(n - 1, b, a + b)
+
+    }
+
+    fib(n, 0, 1)
+  }
+
   def isSorted[A](as: Array[A], gt: (A, A) => Boolean): Boolean = {
 
     @tailrec
