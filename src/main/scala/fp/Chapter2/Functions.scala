@@ -1,4 +1,4 @@
-package fp.Chapter1
+package fp.Chapter2
 
 import scala.annotation.tailrec
 
