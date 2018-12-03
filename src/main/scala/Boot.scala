@@ -14,7 +14,7 @@ object Boot extends App {
   val tree = Branch(branch11, branch12)
 
 
-  println(Tree.maximum(tree))
+  println(Tree.depth(tree))
 
 }
 
