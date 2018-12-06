@@ -1,20 +1,11 @@
+import fp.Chapter4._
 import fp.Chapter3._
+import fp.Chapter4.Option._
 
 object Boot extends App {
 
+  val list: List[Option[Int]] = List(Some(1), Some(2), None, Some(3))
 
-  val branch121 = Branch(Leaf(3), Leaf(4))
-  val branch1222 = Branch(Leaf(6), Leaf(7))
-
-  val branch122 = Branch(Leaf(12), branch1222)
-
-  val branch11 = Branch(Leaf(1), Leaf(2))
-  val branch12 = Branch(branch121, branch122)
-
-  val tree = Branch(branch11, branch12)
-
-
-  println(Tree.depth(tree))
-
+  println(List.sequence[Int](list))
 }
 

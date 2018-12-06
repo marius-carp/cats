@@ -1,5 +1,7 @@
 package fp.Chapter3
 
+import fp.Chapter4._
+
 sealed trait List[+A]
 
 case object Nil extends List[Nothing]
@@ -166,5 +168,22 @@ object List {
       }
 
     go(l, sub, found = false)
+  }
+
+  def sequence[A](a: List[Option[A]]): Option[List[A]] = {
+    def go(a: List[Option[A]], acc: List[A]): Option[List[A]] = {
+      a match {
+        case Nil => Some(acc)
+        case Cons (None , _) => None
+        case Cons (Some(value) , xs) =>
+          go(xs, Cons(value, acc))
+      }
+    }
+
+    go(a, Nil: List[A])
+  }
+
+  def traverse[A, B](list: List[A])(f: A => Option[B]): Option[List[B]] = {
+    foldRight(list, Some(Nil): Option[List[B]])((a, acc) => Option.map2(f(a), acc)((x, y) => Cons(x, y)))
   }
 }
