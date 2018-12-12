@@ -186,4 +186,21 @@ object List {
   def traverse[A, B](list: List[A])(f: A => Option[B]): Option[List[B]] = {
     foldRight(list, Some(Nil): Option[List[B]])((a, acc) => Option.map2(f(a), acc)((x, y) => Cons(x, y)))
   }
+
+  def sequenceEither[A, B](list: List[Either[A, B]]): Either[A, List[B]] = {
+    def go(list: List[Either[A, B]], acc: List[B]): Either[A, List[B]] = {
+      list match {
+        case Nil => Right(acc)
+        case Cons(v@Left(_), _) => v
+        case Cons(Right(value), xs) =>
+          go(xs, Cons(value, acc))
+      }
+
+    }
+
+    go(list, Nil: List[B])
+  }
+
+  def traverse[A, B, E](list: List[A])(f: A => Either[E, B]): Either[E, List[B]] =
+    foldRight(list, Right(Nil): Either[E, List[B]])((a, acc) => f(a).map2(acc)((x, y) => Cons(x, y)))
 }
