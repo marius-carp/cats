@@ -1,12 +1,14 @@
-import fp.Chapter4._
-import fp.Chapter3._
+import fp.Chapter5._
 
 object Boot extends App {
 
 
-  val s : Either[String, Int] = Right(21).asInstanceOf[Either[String, Int]]
+  val stream: Stream[Int] = Stream(1,2,3,4,5)
 
-  println(s.map(_ + 1))
+
+  val result = stream.takeWhile(_ != 4)
+
+  println(result.toList)
 
 }
 
