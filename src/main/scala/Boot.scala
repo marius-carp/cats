@@ -2,11 +2,9 @@ import fp.Chapter5._
 
 object Boot extends App {
 
+  val stream: Stream[Int] = Stream.constantUnfold(2)
 
-  val stream: Stream[Int] = Stream(1,2,3,4,5)
-
-
-  val result = stream.takeWhile(_ != 4)
+  val result = stream.take(6)
 
   println(result.toList)
 
