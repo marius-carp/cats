@@ -1,12 +1,17 @@
-import fp.Chapter5._
+import fp.Chapter6.SimpleRNG._
+import fp.Chapter6.RNG._
+import fp.Chapter6._
 
 object Boot extends App {
 
-  val stream: Stream[Int] = Stream.constantUnfold(2)
+  val seed = RNG.Simple(231)
 
-  val result = stream.take(6)
+  val result = intsSequence(21)
 
-  println(result.toList)
+  println(result(seed)._1)
+
+
+
 
 }
 
