@@ -4,11 +4,9 @@ import fp.Chapter6._
 
 object Boot extends App {
 
-  val seed = RNG.Simple(231)
 
-  val result = flatMapPositiveInt
+  val seed = RNG.Simple(1231)
 
-  println(result(seed)._1)
 
 
 
