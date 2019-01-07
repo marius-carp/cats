@@ -6,7 +6,7 @@ object Boot extends App {
 
   val seed = RNG.Simple(231)
 
-  val result = intsSequence(21)
+  val result = flatMapPositiveInt
 
   println(result(seed)._1)
 

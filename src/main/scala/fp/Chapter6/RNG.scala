@@ -129,4 +129,34 @@ object SimpleRNG {
 
   def intsSequence(n: Int): Rand[List[Int]] =
     sequence(List.fill(n)(rng => rng.nextInt))
+
+  def flatMap[A, B](f: Rand[A])(g: A => Rand[B]): Rand[B] = {
+    rng => {
+      val(a, rng2) = f(rng)
+
+      g(a)(rng2)
+    }
+  }
+
+  def flatMapPositiveInt: Rand[Int] = {
+    flatMap(_.nextInt) { a =>
+      if(a != Int.MinValue)
+        unit(a)
+      else
+        flatMapPositiveInt
+    }
+  }
+
+  def flatMapMap[A, B](s: Rand[A])(f: A => B): Rand[B] = {
+    flatMap(s)(a => unit(f(a)))
+  }
+
+  def flatMapMap2[A, B, C](ra: Rand[A], rb: Rand[B])(f: (A, B) => C): Rand[C] = {
+    flatMap(ra) { a =>
+      flatMapMap(rb) { b =>
+        f(a, b)
+      }
+    }
+  }
+
 }
