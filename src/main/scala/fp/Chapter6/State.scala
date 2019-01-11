@@ -9,13 +9,7 @@ case class State[S, +A](run: S => (A, S)) {
     })
 
   def map2[B, C](s2: State[S, B])(f: (A, B) => C): State[S, C] = {
-    State(x => run(x) match {
-      case (a, s) =>
-        run(s) match {
-          case (b, ss) =>
-            (f(a, b), ss)
-        }
-    })
+    flatMap(a => s2.map(b => f(a,b)))
   }
 
   def flatMap[B](f: A => State[S, B]): State[S, B] =
