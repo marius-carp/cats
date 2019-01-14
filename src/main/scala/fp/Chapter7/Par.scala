@@ -56,4 +56,27 @@ object Par {
     map(product(a,b)){ case (x,y) => f(x,y) }
   }
 
+  def parMap[A, B](l: List[A])(f: A => B): Par[List[B]] = {
+    es => {
+      es.submit(() => l.map(f))
+    }
+  }
+
+  def parMap_map[A, B](l: List[A])(f: A => B): Par[List[B]] = {
+    val fbs: List[Par[B]] = l.map(asyncF(f))
+
+    sequence(fbs)
+  }
+
+  def sequence[A](l: List[Par[A]]): Par[List[A]] = {
+    es => {
+      es.submit(() => l.map(r => r(es).get()))
+    }
+  }
+
+  def parFilter[A](l: List[A])(f: A => Boolean): Par[List[A]] = {
+    es => {
+      es.submit(() => l.filter(f))
+    }
+  }
 }

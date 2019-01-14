@@ -14,7 +14,10 @@ object Boot extends App {
   val list = Par.sortPar(Par.unit(List(1,5,3,2,6,4)))
   val materializedList = Par.run(forkJoinPool)(list)
 
-  println(s"m $materializedList")
+  val list2 = List(1,2,3,4,5,6)
+  val materializedList2 = Par.parMap_map(list2)(_ + 1)(forkJoinPool).get()
+
+  println(s"m $materializedList2")
 
 
 
