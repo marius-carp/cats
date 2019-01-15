@@ -101,5 +101,49 @@ object Par {
     }
   }
 
+  def choiceAsChoiceN[A](a: Par[Boolean])(ifTrue: Par[A], ifFalse: Par[A]): Par[A] = {
+    choiceN(map(a)(r => if(r) 0 else 1))(List(ifTrue, ifFalse))
+  }
 
+  def choiceMap[A, B](a: Par[A])(choices: Map[A, Par[B]]): Par[B] = {
+    es => {
+      val aa = a(es).get()
+      val b = choices.getOrElse(aa, throw new IllegalArgumentException("Element doesn't exist"))
+
+      b(es)
+    }
+  }
+
+  def chooser[A, B](a: Par[A])(choices: A => Par[B]): Par[B] = {
+    es => {
+      val aa = a(es).get
+      choices(aa)(es)
+    }
+  }
+
+  def choiceAsChooser[A](a: Par[Boolean])(ifTrue: Par[A], ifFalse: Par[A]): Par[A] = {
+    chooser(a){ r => if(r) ifTrue else ifFalse }
+  }
+
+  def choiceNAsChooser[A](a: Par[Int])(choices: List[Par[A]]): Par[A] = {
+    chooser(a){ r =>
+      choices.lift(r) match {
+        case Some(value) => value
+        case _ => throw new IllegalArgumentException("Element doesn't exist")
+      }
+    }
+  }
+
+  def flatMap[A, B](a: Par[A])(f: A => Par[B]): Par[B] = {
+    es => {
+      val aa = a(es).get
+      f(aa)(es)
+    }
+  }
+
+  def join[A](a: Par[Par[A]]): Par[A] = {
+    es => {
+      SimpleFuture(a(es).get()(es).get())
+    }
+  }
 }
