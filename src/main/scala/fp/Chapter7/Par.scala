@@ -79,4 +79,27 @@ object Par {
       es.submit(() => l.filter(f))
     }
   }
+
+  def choice[A](a: Par[Boolean])(ifTrue: Par[A], ifFalse: Par[A]): Par[A] = {
+    es => {
+      val result = if(a(es).get())
+        ifTrue(es).get()
+      else
+        ifFalse(es).get()
+
+      SimpleFuture(result)
+    }
+  }
+
+  def choiceN[A](a: Par[Int])(choices: List[Par[A]]): Par[A] = {
+    es => {
+      val aa = a(es).get()
+      choices.lift(aa) match {
+        case Some(value) => value(es)
+        case _ => throw new IllegalArgumentException("Element doesn't exist")
+      }
+    }
+  }
+
+
 }
