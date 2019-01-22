@@ -86,4 +86,6 @@ object Monoid {
     val mb: Monoid[B => B] = endoMonoid[B]
     foldMap(as, mb)(a => b => f(b, a))(z)
   }
+
+  def foldMapV[A, B](v: IndexedSeq[A], m: Monoid[B])(f: A => B): B = ???
 }
