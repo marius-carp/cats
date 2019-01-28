@@ -1,11 +1,12 @@
-import fp.Chapter10.Monoid
+import fp.Chapter11.Monad._
 
 object Boot extends App {
 
 
-  val result = Monoid.concatenate(List("a", "b", "c"), Monoid.stringMonoid)
+  val result = optionMonad.sequence(List(Some(1), Some(2), Some(3), Some(4)))
 
-  println(s"result $result")
+  println(result)
+
 
 }
 
