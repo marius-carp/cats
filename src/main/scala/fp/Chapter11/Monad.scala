@@ -29,6 +29,37 @@ trait Monad[M[_]] extends Functor[M] {
       map2(f(a), mList){ (a, b) => a :: b }
     }
   }
+
+  def replicateM[A](n: Int, ma: M[A]): M[List[A]] =
+    sequence(List.fill(n)(ma))
+
+  def factor[A, B](ma: M[A], mb: M[B]): M[(A, B)] =
+    map2(ma, mb)((_, _))
+
+  def cofactor[A, B](e: Either[M[A], M[B]]): M[Either[A, B]] =
+    e match {
+      case Left(ma) =>
+        map(ma)(Left(_))
+      case Right(mb) =>
+        map(mb)(Right(_))
+    }
+
+  def compose[A, B, C](f: A => M[B], g: B => M[C]): A => M[C] =
+    a => flatMap(f(a))(g)
+
+  def flatMapAsCompose[A, B](ma: M[A])(f: A => M[B]): M[B] =
+    compose((_: Unit) => ma, f)(())
+
+  def join[A](mma: M[M[A]]): M[A] =
+    flatMap(mma)(r => r)
+
+  def flatMapAsJoin[A, B](ma: M[A])(f: A => M[B]): M[B] =
+    join(map(ma)(f))
+
+  def composeAsJoin[A, B, C](f: A => M[B], g: B => M[C]): A => M[C] =
+    a => {
+      join(map(f(a))(g))
+    }
 }
 
 object Monad {
