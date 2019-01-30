@@ -1,5 +1,6 @@
 package fp.Chapter11
 
+import fp.Chapter6.State
 import fp.Chapter7.Par
 import fp.Chapter7.Par.Par
 import fp.Chapter8.Gen
@@ -91,6 +92,39 @@ object Monad {
     override def flatMap[A, B](ma: List[A])(f: A => List[B]): List[B] = ma.flatMap(f)
 
     override def unit[A](a: => A): List[A] = List(a)
+  }
+
+  val idMonad: Monad[Id] = new Monad[Id] {
+    override def flatMap[A, B](ma: Id[A])(f: A => Id[B]): Id[B] =
+      ma.flatMap(f)
+
+    override def unit[A](a: => A): Id[A] =
+      Id(a)
+  }
+
+  type IntState[A] = State[Int, A]
+
+  object IntStateMonad extends Monad[IntState] {
+    override def unit[A](a: => A): IntState[A] = State(s => (a, s))
+
+    override def flatMap[A, B](ma: IntState[A])(f: A => IntState[B]): IntState[B] =
+      ma.flatMap(f)
+  }
+
+  object IntStateMonad2 extends Monad[State[Int, ?]] {
+    override def unit[A](a: => A): State[Int, A] = State(s => (a, s))
+
+    override def flatMap[A, B](ma: State[Int, A])(f: A => State[Int, B]): State[Int, B] = ma.flatMap(f)
+  }
+
+  def stateMonad[S] = new Monad[State[S, ?]] {
+    override def unit[A](a: => A): State[S, A] = State(s => (a, s))
+
+    override def flatMap[A, B](ma: State[S, A])(f: A => State[S, B]): State[S, B] = ma.flatMap(f)
+
+    def getState: State[S, S] = State(s => (s, s))
+
+    def setState(s: => S): State[S, Unit] = State(_ => (Unit, s))
   }
 
 }
