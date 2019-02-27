@@ -1,6 +1,8 @@
 package fp.Chapter9
 
 import scala.util.matching.Regex
+import scala.language.implicitConversions
+import scala.language.higherKinds
 
 trait Parser[A] {
 
