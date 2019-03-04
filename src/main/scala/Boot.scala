@@ -1,24 +1,26 @@
-import fp.Chapter11.Id
-import fp.Chapter11.Monad._
+import fp.Chapter14.{IO, Player}
 
 object Boot extends App {
 
+  def ReadLine: IO[String] =
+    IO {
+      scala.io.StdIn.readLine()
+    }
 
-  val f: (Int, Int ,Int) => Int = _ + _ + _
+  def PrintLine(msg: String): IO[Unit] =
+    IO {
+      println(msg)
+    }
 
-  val k: Int => Int => Int => Int = f.curried
+  def fahrenheitToCelsius(f: Double): Double =
+    (f - 32) * 5.0/9.0
 
+  def converter: IO[Unit] = for {
+    _ <- PrintLine("enter a temperature in degrees f: ")
+    d <- ReadLine.map(_.toDouble)
+    _ <- PrintLine(fahrenheitToCelsius(d).toString)
+  } yield ()
 
-  def r(i: Int): Int => Int = {
-    a => i + 10
-  }
-
-  def s(r: Int => Int): Int => Int = {
-    a => r(a)
-  }
-
-  val result = s(r(21))
-
-  println(result(12))
+  converter
 }
 
