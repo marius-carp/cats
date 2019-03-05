@@ -1,4 +1,4 @@
-import fp.Chapter14.{IO, Player}
+import fp.Chapter13.{IO, Player}
 
 object Boot extends App {
 
