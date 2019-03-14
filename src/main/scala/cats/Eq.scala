@@ -1,8 +1,0 @@
-package cats
-
-
-class Eq {
-
-
-
-}

@@ -1,6 +1,7 @@
-package cats
+package video
 
 import simulacrum._
+
 import scala.language.higherKinds
 
 
