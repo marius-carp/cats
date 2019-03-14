@@ -1,0 +1,8 @@
+package cats
+
+
+class Eq {
+
+
+
+}
