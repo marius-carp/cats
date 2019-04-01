@@ -6,9 +6,9 @@ import cats.implicits._
 object Boot extends App {
 
 
-  val result = Conjunction(true) |+| Conjunction(false)
+  val result = Pole.rlr
 
-  println(result.unwrap)
+  println(result)
 
 }
 
