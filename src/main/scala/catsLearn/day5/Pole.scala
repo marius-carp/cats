@@ -1,9 +1,8 @@
-package catsLearn
+package catsLearn.day5
 
-import catsLearn.Pole.Birds
 import cats._
-import cats.data._
 import cats.implicits._
+import catsLearn.day5.Pole.Birds
 
 
 object Pole {

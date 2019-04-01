@@ -1,4 +1,4 @@
-package catsLearn
+package catsLearn.day3
 
 import simulacrum.typeclass
 

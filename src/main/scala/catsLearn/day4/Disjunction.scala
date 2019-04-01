@@ -1,8 +1,6 @@
-package catsLearn
+package catsLearn.day4
 
 import cats._
-import cats.data._
-import cats.implicits._
 
 class Disjunction(val unwrap: Boolean) extends AnyVal
 

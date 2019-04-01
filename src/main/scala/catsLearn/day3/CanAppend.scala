@@ -1,8 +1,5 @@
-package catsLearn
+package catsLearn.day3
 
-import cats._
-import cats.data._
-import cats.implicits._
 import simulacrum.{op, typeclass}
 
 @typeclass trait CanAppend[A] {

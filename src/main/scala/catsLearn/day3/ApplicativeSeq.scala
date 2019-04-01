@@ -1,7 +1,6 @@
-package catsLearn
+package catsLearn.day3
 
 import cats._
-import cats.data._
 import cats.implicits._
 
 object ApplicativeSeq {
