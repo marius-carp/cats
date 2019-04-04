@@ -7,7 +7,7 @@ import catsLearn.day5.KnightPos
 object Boot extends App {
 
 
-  val result = KnightPos(6, 2) canReachIn3 KnightPos(6, 1)
+  val result = day6.Day6.readerResult
 
   println(result)
 
