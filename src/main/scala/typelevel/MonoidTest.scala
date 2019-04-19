@@ -44,7 +44,10 @@ object MonoidTest {
   }
 */
 
-  val list = List(NonEmptyList(1, List(2, 3)), NonEmptyList(4, List(5, 6)))
+  val list = List(
+    NonEmptyList(1, List(2, 3)),
+    NonEmptyList(4, List(5, 6))
+  )
   val lifted: List[Option[NonEmptyList[Int]]] = list.map(nel => Option(nel))
 
   val result2: Option[NonEmptyList[Int]] = Monoid.combineAll(lifted)
