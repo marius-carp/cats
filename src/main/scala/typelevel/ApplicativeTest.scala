@@ -71,4 +71,14 @@ object ApplicativeTest {
     }
 
   val result4 = List(1, 2, 3).traverse(i => Some(i): Option[Int])
+
+  final case class Id[A](value: A)
+
+  implicit val applicativeForId: Applicative[Id] = new Applicative[Id] {
+    override def pure[A](x: A): Id[A] = Id(x)
+
+    override def ap[A, B](ff: Id[A => B])(fa: Id[A]): Id[B] =
+      Id(ff.value(fa.value))
+  }
+
 }

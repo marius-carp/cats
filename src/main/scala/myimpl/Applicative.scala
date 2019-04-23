@@ -10,6 +10,9 @@ trait Applicative[F[_]] extends Functor[F] {
 
   def product[A, B](fa: F[A], fb: F[B]): F[(A, B)] =
     ap(map(fa)(a => (b: B) => (a, b)))(fb)
+
+  def map2[A, B, Z](fa: F[A], fb: F[B])(f: (A, B) => Z): F[Z] =
+    ap(map(fb)(b => f(_: A, b)))(fa)
 }
 
 object Applicative {
@@ -34,5 +37,14 @@ object Applicative {
         a <- fa
       } yield f(a)
     }
+  }
+
+  final case class Id[A](value: A)
+
+  implicit val applicativeForId: Applicative[Id] = new Applicative[Id] {
+    override def pure[A](x: A): Id[A] = Id(x)
+
+    override def ap[A, B](ff: Id[A => B])(fa: Id[A]): Id[B] =
+      Id(ff.value(fa.value))
   }
 }
