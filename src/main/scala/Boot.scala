@@ -15,6 +15,6 @@ object Boot extends App {
 
 
 
-  println(ApplicativeTest.composed)
+  println(ApplicativeTest.result4)
 
 }
