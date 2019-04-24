@@ -15,6 +15,8 @@ object Boot extends App {
 
 
 
-  println(TraverseTest.traversed)
+  println(ApplicativeTest.result5)
+  println(ApplicativeTest.result6)
+  println(ApplicativeTest.result7)
 
 }

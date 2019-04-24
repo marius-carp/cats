@@ -2,10 +2,9 @@ package typelevel
 
 import java.sql.Connection
 
-import cats.Applicative
-import cats.data.Nested
+import cats._
+import cats.data._
 import cats.implicits._
-
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -80,5 +79,20 @@ object ApplicativeTest {
     override def ap[A, B](ff: Id[A => B])(fa: Id[A]): Id[B] =
       Id(ff.value(fa.value))
   }
+
+  def fct(i1: Int, i2: Int) = i1 + i2
+  val v1: Option[Int] = Some(1)
+  val v2: Option[Int] = Some(2)
+
+  val result5 = for {
+    i1 <- v1
+    i2 <- v2
+  } yield fct(i1, i2)
+
+  val v1_trans = v1.map { i1: Int => { i2: Int => fct(i1, i2) } }
+
+  val result6 = Applicative[Option].ap(v1_trans)(v2)
+
+  val result7 = (v1, v2).mapN(fct)
 
 }
