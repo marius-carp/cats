@@ -15,8 +15,6 @@ object Boot extends App {
 
 
 
-  println(ApplicativeTest.result5)
-  println(ApplicativeTest.result6)
-  println(ApplicativeTest.result7)
+  println(MonadTest.result)
 
 }
