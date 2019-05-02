@@ -18,4 +18,6 @@ object FunctorTest {
 
   val result2 = nested.map(_ + 1)
 
+  val result3 = Functor[List].lift[Int, String](e => e.toString + "d ")(List(1,2,3,4))
+
 }
