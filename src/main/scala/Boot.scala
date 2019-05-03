@@ -15,6 +15,6 @@ object Boot extends App {
 
 
 
-  println(ContravariantTest.result)
+  println(ContravariantMonoidalTest.result3)
 
 }
