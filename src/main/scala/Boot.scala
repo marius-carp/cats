@@ -1,20 +1,10 @@
-import catsLearn._
-import catsLearn.day10.Main
-import catsLearn.day7.{IorTest, ValidatedTest}
-import catsLearn.day8.{CharToy, FixE, TrampolineTest}
-import catsLearn.day9.{Coin, FoldMTest, KleisliTest, Prob}
-import typelevel._
-
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
-
+import typelevel.AlternativeTest
 
 object Boot extends App {
 
-  implicit val ec = scala.concurrent.ExecutionContext.global
 
 
-
-  println(InvariantMonoidalTest.result4)
+  println(AlternativeTest.result)
+  println(AlternativeTest.result2)
 
 }
