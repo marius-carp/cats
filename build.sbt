@@ -20,7 +20,8 @@ libraryDependencies ++= Seq(
   "org.scalamacros"            %% "resetallattrs"            % "1.0.0",
   "org.specs2"                 %% "specs2-core"              % "4.5.1",
   "org.specs2"                 %% "specs2-scalacheck"        % "4.5.1",
-  "org.scalacheck"             %% "scalacheck"               % "1.14.0"
+  "org.scalacheck"             %% "scalacheck"               % "1.14.0",
+  "io.monix"                   %% "monix"                    % "2.3.3"
 )
 
 scalacOptions ++= Seq(
