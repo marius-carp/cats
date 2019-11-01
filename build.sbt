@@ -21,7 +21,8 @@ libraryDependencies ++= Seq(
   "org.specs2"                 %% "specs2-core"              % "4.5.1",
   "org.specs2"                 %% "specs2-scalacheck"        % "4.5.1",
   "org.scalacheck"             %% "scalacheck"               % "1.14.0",
-  "io.monix"                   %% "monix"                    % "2.3.3"
+  "io.monix"                   %% "monix"                    % "2.3.3",
+  "dev.zio"                    %% "zio"                      % "1.0.0-RC16"
 )
 
 scalacOptions ++= Seq(
